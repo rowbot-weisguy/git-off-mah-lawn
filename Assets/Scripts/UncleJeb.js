@@ -2,7 +2,7 @@
 
 private var movement : Vector3 = Vector3.zero;
 private var controller: CharacterController;
-private var speed : float = 5;
+private var speed : float = 50;
 static var maxHealth : float = 10;
 static var currentHealth : float = 10;
 //private var nextFire = 0.0;
