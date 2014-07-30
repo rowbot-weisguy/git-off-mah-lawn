@@ -4,7 +4,7 @@
 //	Raccoon has 3 states: moving, pausing and recovering
 //  Raccoon can move in 3 directions: down, down-left, and down-right
 
-	static var maxHealth : float = 30;
+	static var maxHealth : float = 25;
 	static var currentHealth : float = 30;
 	static var speed_x : float = 0.015;
 	static var speed_y : float = 0.015;
