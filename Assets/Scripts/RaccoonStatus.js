@@ -25,7 +25,9 @@
 	var anim : Animator;
 	var raccoon_losing : boolean = false;
 	
-	public var blood : GameObject;
+	public var smallBlood : GameObject;
+	public var explosion : GameObject;
+	public var bigBlood : GameObject;
 
 function Start () {
 	currentHealth = maxHealth; // Set starting health
@@ -144,7 +146,10 @@ function takeDamage(damage : int) {
 	}
 	
 	if (this.currentHealth <= 0) {
-	Destroy(this.gameObject);
+		Destroy(this.gameObject);
+		var shockWave : GameObject = Instantiate(explosion,transform.position,Quaternion.identity);
+		shockWave.transform.localScale = Vector3(0.0001f, 0.0001f, 0.0001f);
+		Instantiate(bigBlood,transform.position,Quaternion.identity);
 	}
 }
 
@@ -160,7 +165,7 @@ function OnTriggerEnter(col : Collider) {
 	if (col.gameObject.tag == "Default Bullet") {
 		takeDamage(1);
 		Destroy(col.gameObject);
-		Instantiate(blood,col.transform.position,Quaternion.identity);
+		Instantiate(smallBlood,col.transform.position,Quaternion.identity);
 	}
 	
 	if (col.gameObject.tag == "Porch") {
