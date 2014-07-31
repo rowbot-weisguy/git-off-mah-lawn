@@ -18,6 +18,7 @@ function Update () {
 		firing = true;
 		Fire();
 	} else if (Input.GetKey("space") && Time.time > nextFire) {
+		firing = true;
 		Fire();
 	} else {
 		firing = false; 

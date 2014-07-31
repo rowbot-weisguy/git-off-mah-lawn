@@ -47,9 +47,9 @@ function RunAnimation() {
 		anim.SetFloat("HL", 0.0);
 	}
 	
-	if (Input.GetKey(KeyCode.Space)) {
+	if (Input.GetButton("Fire1") || Input.GetKey("space")) {
 		anim.SetBool("Fire", true);
-	} else if (Input.GetKeyUp(KeyCode.Space)) {
+	} else {
 		anim.SetBool("Fire", false);
 	}
 					
