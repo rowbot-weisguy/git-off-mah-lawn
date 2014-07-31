@@ -6,8 +6,8 @@
 
 	public var maxHealth : float = 5;
 	public var currentHealth : float = 5;
-	static var speed_x : float = 0.015;
-	static var speed_y : float = 0.015;
+	static var speed_x : float = 0.035;
+	static var speed_y : float = 0.025;
 	var minMove : float = 1.0;
 	var maxMove : float = 5.0;
 	var minPause : float = 1.0;
@@ -28,6 +28,8 @@
 	public var smallBlood : GameObject;
 	public var explosion : GameObject;
 	public var bigBlood : GameObject;
+	
+	public var blood : AudioClip;
 
 function Start () {
 	currentHealth = maxHealth; // Set starting health
@@ -143,6 +145,7 @@ function takeDamage(damage : int) {
 	currentHealth -= damage;
 	if (currentHealth <= 0) {
 		currentHealth = 0;
+
 	}
 	
 	if (this.currentHealth <= 0) {
@@ -152,6 +155,8 @@ function takeDamage(damage : int) {
 		Instantiate(bigBlood,transform.position,Quaternion.identity);
 		Spawner.numRaccoons -= 1;
 		Spawner.totalRaccoons -= 1;
+
+
 	}
 }
 
@@ -168,11 +173,12 @@ function OnTriggerEnter(col : Collider) {
 		takeDamage(1);
 		Destroy(col.gameObject);
 		Instantiate(smallBlood,col.transform.position,Quaternion.identity);
+				audio.PlayOneShot(blood);
+
 	}
 	
 	if (col.gameObject.tag == "Porch") {
 		raccoon_losing = true;
 		GameState.gameState = 3;
-		
 	}
 }

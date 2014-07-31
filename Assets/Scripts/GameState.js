@@ -15,12 +15,15 @@ static var gameState : int;
  var animationStart : boolean = false; 
  
  var animationTimer : int;
+ public var banjo : AudioClip;
+ public var win : AudioClip;
 
 function Start () {
 	winingGUI = false;
 	animationTimer = 170;
 	animationStart = false;
 	gameState = 1;
+	audio.PlayOneShot(banjo);
 
 }
 
@@ -54,12 +57,15 @@ function checkLosing() {
 function checkWinning() {
 	if (gameState == 2 && !animationSwitch2) {
 	winingGUI = true;
+
+	
 	}
 }
 
 function OnGUI(){
 		if (winingGUI == true) {
 		if (GUI.Button(Rect(Screen.width/2 - 50, Screen.height/3 * 2, 100, 50), "NEXT WAVE")) {
+			audio.PlayOneShot(win);
 			animationSwitch2 = true;
 			backgroundAnimation.animation.Play();
 			winingGUI = false;
