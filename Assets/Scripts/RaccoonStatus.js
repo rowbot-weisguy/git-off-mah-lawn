@@ -24,6 +24,8 @@
 	
 	var anim : Animator;
 	var raccoon_losing : boolean = false;
+	
+	public var blood : GameObject;
 
 function Start () {
 	currentHealth = maxHealth; // Set starting health
@@ -32,6 +34,7 @@ function Start () {
 	
 	raccoon_losing = false;
 	GameState.gameState = 1;
+	
 }
 
 function Update () {
@@ -157,11 +160,11 @@ function OnTriggerEnter(col : Collider) {
 	if (col.gameObject.tag == "Default Bullet") {
 		takeDamage(1);
 		Destroy(col.gameObject);
+		Instantiate(blood,col.transform.position,Quaternion.identity);
 	}
 	
 	if (col.gameObject.tag == "Porch") {
 		raccoon_losing = true;
-		print("porch");
 		GameState.gameState = 3;
 		
 	}
