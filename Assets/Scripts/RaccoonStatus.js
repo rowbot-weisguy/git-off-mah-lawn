@@ -23,23 +23,26 @@
 	private var attack_speed : float = 300;
 	
 	var anim : Animator;
+	var raccoon_losing : boolean = false;
 
 function Start () {
 	currentHealth = maxHealth; // Set starting health
 	ChooseDirection(); 
 	anim = GetComponent("Animator");
+	
+	raccoon_losing = false;
+	GameState.gameState = 1;
 }
 
 function Update () {
 	// Check if Raccoon is moving, pausing or recovering and then calls that action
+	if (GameState.gameState == 1) {
 	switch(currentAction) {
 		case 'move': Move(); break;
 		case 'pause': Pause(); break;
 		case 'recover': Recover(); break;
+		}
 	}
-
-//	MoveSide(speed_x);
-//	Attack();
 }
 
 function ChooseDirection() {
@@ -154,5 +157,12 @@ function OnTriggerEnter(col : Collider) {
 	if (col.gameObject.tag == "Default Bullet") {
 		takeDamage(1);
 		Destroy(col.gameObject);
+	}
+	
+	if (col.gameObject.tag == "Porch") {
+		raccoon_losing = true;
+		print("porch");
+		GameState.gameState = 3;
+		
 	}
 }
