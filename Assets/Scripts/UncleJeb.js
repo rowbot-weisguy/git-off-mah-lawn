@@ -32,11 +32,6 @@ function Update () {
 	RunAnimation();
 	MovementControl();
 	DisplayHealth();
-//	if (Input.GetButton("Fire1") && Time.time > nextFire) {
-//		Fire();
-//	} else if (Input.GetKeyUp("space") && Time.time > nextFire) {
-//		Fire();
-//	}
 }
 
 function RunAnimation() {
@@ -50,7 +45,14 @@ function RunAnimation() {
 		anim.SetFloat("HL", 1.0);
 	} else if (Input.GetKeyUp(KeyCode.LeftArrow)) {
 		anim.SetFloat("HL", 0.0);
-	}		
+	}
+	
+	if (Input.GetKey(KeyCode.Space)) {
+		anim.SetBool("Fire", true);
+	} else if (Input.GetKeyUp(KeyCode.Space)) {
+		anim.SetBool("Fire", false);
+	}
+					
 }
 
 function MovementControl() {
@@ -100,12 +102,6 @@ function DisplayHealth() {
 		myHealth.guiTexture.pixelInset = Rect(10, 10, healthBarWidth, 8);
 	}
 }
-
-//function Fire() {
-//	nextFire = Time.time + fireRate;
-//	var spawn_defaultBullet = Instantiate(defaultBullet, transform.position, Quaternion.identity);
-//	spawn_defaultBullet.rigidbody.AddForce(Vector3.up * speed);
-//}
 
 function OnTriggerEnter (col: Collider) {
 	if (gameObject.tag == "Character") {

@@ -2,25 +2,31 @@
 
 private var controller: CharacterController;
 var defaultBullet : GameObject;
-private var speed : float = 350;
-var fireRate = 0.01;
-var nextFire = 0.0;
-
+private var speed : float = 700;
+static var fireTimer : float;
+static var firing : boolean;
 
 function Start () {
 	controller = GetComponent(CharacterController);
+	fireTimer = 15;
+	firing = false;
 }
 
 function Update () {
-	if (Input.GetButton("Fire1") && Time.time > nextFire) {
-		Fire();
-	} else if (Input.GetKeyUp("space") && Time.time > nextFire) {
-		Fire();
-	}
+	Fire();
 }
 
 function Fire() {
-	nextFire = Time.time + fireRate;
-	var spawn_defaultBullet = Instantiate(defaultBullet, transform.position, Quaternion.identity);
-	spawn_defaultBullet.rigidbody.AddForce(Vector3.up * speed);
+	if (Input.GetKey(KeyCode.Space)) {
+		fireTimer --;
+		if (fireTimer <= 0) {
+			firing = true;
+			var spawn_defaultBullet = Instantiate(defaultBullet, transform.position, Quaternion.identity);
+			spawn_defaultBullet.rigidbody.AddForce(Vector3.up * speed);
+			fireTimer = 15;
+		}
+	}else if (Input.GetKeyUp(KeyCode.Space)){
+		fireTimer = 15;
+		firing = false;
+	}
 }
