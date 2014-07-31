@@ -17,17 +17,17 @@ function Update () {
 	if (UncleJeb.inHouse == false) {
 		if (Input.GetButton("Fire1") && Time.time > nextFire) {
 			firing = true;
-			Fire();
+			Fire(); // Comment!
 		} else if (Input.GetKey("space") && Time.time > nextFire) {
 			firing = true;
 			Fire();
 		} else {
-			firing = false; 
+			firing = false;
 		}
 	}
 }
 
-function Fire() {	
+function Fire() {
 	nextFire = Time.time + fireRate;
 	var spawn_defaultBullet = Instantiate(defaultBullet, transform.position, Quaternion.identity);
 	spawn_defaultBullet.rigidbody.AddForce(Vector3.up * speed);
