@@ -150,6 +150,8 @@ function takeDamage(damage : int) {
 		var shockWave : GameObject = Instantiate(explosion,transform.position,Quaternion.identity);
 		shockWave.transform.localScale = Vector3(0.0001f, 0.0001f, 0.0001f);
 		Instantiate(bigBlood,transform.position,Quaternion.identity);
+		Spawner.numRaccoons -= 1;
+		Spawner.totalRaccoons -= 1;
 	}
 }
 

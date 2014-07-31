@@ -6,6 +6,7 @@ private var speed : float = 700;
 static var firing : boolean;
 static var fireRate : float = 0.2f;
 static var nextFire : float;
+public var gun : AudioClip;
 
 function Start () {
 	controller = GetComponent(CharacterController);
@@ -27,4 +28,5 @@ function Fire() {
 	nextFire = Time.time + fireRate;
 	var spawn_defaultBullet = Instantiate(defaultBullet, transform.position, Quaternion.identity);
 	spawn_defaultBullet.rigidbody.AddForce(Vector3.up * speed);
+	audio.PlayOneShot(gun);
 }
