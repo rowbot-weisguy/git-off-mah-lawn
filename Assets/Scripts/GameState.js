@@ -5,29 +5,44 @@ static var gameState : int;
 // raccoon wave (win) = 2;
 // raccoon wave (lose) = 3;
 
-var animationSwitch1 : boolean = false;
-var jebAnimation: GameObject;
+ //static var animationSwitch1 : boolean = false;
+ //static var jebAnimation: GameObject;
 
-var animationSwitch2 : boolean = false;
-var backgroundAnimation: GameObject;
+  var animationSwitch2 : boolean = false;
+  var backgroundAnimation: GameObject;
 
-static var winingGUI : boolean = false; 
-static var turned : boolean = false; 
+ var winingGUI : boolean = false; 
+ var animationStart : boolean = false; 
+ 
+ var animationTimer : int;
 
 function Start () {
 	winingGUI = false;
-	turned = false;
+	animationTimer = 170;
+	animationStart = false;
+	gameState = 1;
+
 }
 
 function Update () {
 	checkLosing();
 	checkWinning();
+	print(animationTimer);
 	
-	if (turned == true) {
-		animationSwitch2 = true;
-		backgroundAnimation.animation.Play();
-
+	if (animationStart == true) {
+		animationTimer --;
 	}
+	
+	if (animationTimer <= 0) {
+		animationTimer = 0;
+	}
+	
+	//if (turned == true) {
+		//animationSwitch2 = true;
+		//backgroundAnimation.animation.Play();
+		//turned = false;
+
+	//}
 }
 
 function checkLosing() {
@@ -37,25 +52,34 @@ function checkLosing() {
 }
 
 function checkWinning() {
-	if (gameState == 2 && !animationSwitch1) {
+	if (gameState == 2 && !animationSwitch2) {
 	winingGUI = true;
 	}
 }
 
 function OnGUI(){
-		if (winingGUI == true && turned == false) {
-		if (GUI.Button(Rect(40, 200, 100, 50), "NEXT WAVE")) {
-		jebAnimation.animation.Play();
-		animationSwitch1 = true;
-		winingGUI = false;
-		turned = true;
-		animationSwitch1 = false;
-		print("turn");
+		if (winingGUI == true) {
+		if (GUI.Button(Rect(Screen.width/2 - 50, Screen.height/3 * 2, 100, 50), "NEXT WAVE")) {
+			animationSwitch2 = true;
+			backgroundAnimation.animation.Play();
+			winingGUI = false;
+			animationStart = true;
+
 		}
 	}
-		//if (GUI.Button(Rect(0, 220, 60, 25), "<< HOUSE")) {
-		//}
-		//if (GUI.Button(Rect(130, 220, 60, 25), "BARNYARD >>")) {
-		//}
+		if (animationTimer <= 0) {
+			if (GUI.Button(Rect(0, Screen.height /4 * 3.5, 70, 25), "HOUSE")) {
+				animationTimer = 0;
+				animationStart = false;
+				Application.LoadLevel("House");
+				winingGUI = false;
+			}
+			if (GUI.Button(Rect(Screen.width/4 * 2, Screen.height /4 * 3.5, 100, 25), "BARNYARD")) {
+				animationTimer = 0;
+				animationStart = false;
+				Application.LoadLevel("Green Barnyard");
+				winingGUI = false;
+			}
+		}
 
 }

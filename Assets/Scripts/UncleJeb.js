@@ -17,6 +17,8 @@ var myHealthBar : GameObject;
 var myHealth : GameObject;
 var fireRate = 0.01;
 
+static var inHouse : boolean;
+
 
 function Start () {
 	anim = GetComponent("Animator");
@@ -26,12 +28,15 @@ function Start () {
 	healthBarWidth = 20;
 	myHealth = Instantiate(myHealthBar, transform.position, transform.rotation);
 	myHealthBackground = Instantiate(myHealthBarBackground, transform.position, transform.rotation);
+	
+	inHouse = false;
 }
 
 function Update () {
 	RunAnimation();
 	MovementControl();
 	DisplayHealth();
+	print(inHouse);
 }
 
 function RunAnimation() {
@@ -47,12 +52,14 @@ function RunAnimation() {
 		anim.SetFloat("HL", 0.0);
 	}
 	
-	if (Input.GetKey(KeyCode.Space)) {
-		anim.SetBool("Fire", true);
-	} else if (Input.GetKeyUp(KeyCode.Space)) {
-		anim.SetBool("Fire", false);
+	if (inHouse != true) {
+		if (Input.GetKey(KeyCode.Space)) {
+			anim.SetBool("Fire", true);
+		} else if (Input.GetKeyUp(KeyCode.Space)) {
+			anim.SetBool("Fire", false);
+		}
 	}
-					
+
 }
 
 function MovementControl() {
@@ -110,4 +117,10 @@ function OnTriggerEnter (col: Collider) {
 			getDamage(1);
 		}
 	}
-}
+	
+		if (gameObject.tag == "Character") {
+			if (col.gameObject.tag == "House Border") {
+			inHouse = true;
+			}
+		}
+	}

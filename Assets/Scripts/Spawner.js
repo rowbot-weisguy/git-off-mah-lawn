@@ -10,7 +10,7 @@ static var totalRaccoons : int;
 function Start () {
 	nextSpawnerTime = Time.time;
   	spawnerRate = 2;
-  	maxRaccoons = Random.Range(4, 4);
+  	maxRaccoons = Random.Range(10, 25);
   	minRaccoons = 0;
   	numRaccoons = 0;
   	totalRaccoons = maxRaccoons;

@@ -18,6 +18,7 @@ function Update () {
 }
 
 function Fire() {
+	if (UncleJeb.inHouse == false) {
 	if (Input.GetKey(KeyCode.Space)) {
 		fireTimer --;
 		if (fireTimer <= 0) {
@@ -30,5 +31,6 @@ function Fire() {
 	}else if (Input.GetKeyUp(KeyCode.Space)){
 		fireTimer = 15;
 		firing = false;
+	}
 	}
 }
