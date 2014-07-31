@@ -5,6 +5,7 @@ var defaultBullet : GameObject;
 private var speed : float = 700;
 static var fireTimer : float;
 static var firing : boolean;
+public var gun : AudioClip;
 
 function Start () {
 	controller = GetComponent(CharacterController);
@@ -23,6 +24,7 @@ function Fire() {
 			firing = true;
 			var spawn_defaultBullet = Instantiate(defaultBullet, transform.position, Quaternion.identity);
 			spawn_defaultBullet.rigidbody.AddForce(Vector3.up * speed);
+			audio.PlayOneShot(gun);
 			fireTimer = 15;
 		}
 	}else if (Input.GetKeyUp(KeyCode.Space)){
