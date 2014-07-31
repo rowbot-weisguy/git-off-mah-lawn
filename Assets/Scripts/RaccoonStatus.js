@@ -4,8 +4,8 @@
 //	Raccoon has 3 states: moving, pausing and recovering
 //  Raccoon can move in 3 directions: down, down-left, and down-right
 
-	static var maxHealth : float = 30;
-	static var currentHealth : float = 30;
+	public var maxHealth : float = 5;
+	public var currentHealth : float = 5;
 	static var speed_x : float = 0.015;
 	static var speed_y : float = 0.015;
 	var minMove : float = 1.0;
@@ -21,10 +21,13 @@
 	private var timer : int = 100;
 	var enemy_bullet : GameObject;
 	private var attack_speed : float = 300;
+	
+	var anim : Animator;
 
 function Start () {
 	currentHealth = maxHealth; // Set starting health
 	ChooseDirection(); 
+	anim = GetComponent("Animator");
 }
 
 function Update () {
@@ -48,19 +51,19 @@ function ChooseDirection() {
 	switch(r) { // Checks which one it is and executes outcome
 		case 0:
 			moveDirection = 'down';
-			// NEED TO: Set animation
+				anim.SetFloat("RacoonSpeed", 1.0);
 			break;
 		case 1:
 			moveDirection = 'downleft';
-			// NEED TO: Set animation
+				anim.SetFloat("RacoonSpeed", 1.0);
 			break;
 		case 2:
 			moveDirection = 'downright';
-			// NEED TO: Set animation
+				anim.SetFloat("RacoonSpeed", 1.0);
 			break;
 		default:
 			moveDirection = 'down';
-			// NEED TO: Set animation
+				anim.SetFloat("RacoonSpeed", 1.0);
 			break;
 	}
 	
@@ -113,7 +116,7 @@ function MoveDownRight() {
 
 
 function Pause() {
-	// NEED TO: Set animation to Pause
+	anim.SetFloat("RacoonSpeed", 0.0);
 	
 	if (Time.time > currentActionTimer) {
 		ChooseDirection();
@@ -133,8 +136,11 @@ function takeDamage(damage : int) {
 	if (currentHealth <= 0) {
 		currentHealth = 0;
 	}
+	
+	if (this.currentHealth <= 0) {
+	Destroy(this.gameObject);
+	}
 }
-
 
 function OnTriggerEnter(col : Collider) {
 	if (col.gameObject.name == "BorderL") {
@@ -144,13 +150,9 @@ function OnTriggerEnter(col : Collider) {
 		moveDirection = 'downleft';
 		MoveDownLeft();
 	}
-	
-			
+		
 	if (col.gameObject.tag == "Default Bullet") {
 		takeDamage(1);
 		Destroy(col.gameObject);
-		if (currentHealth <= 0) {
-			Destroy(gameObject);
-		}
 	}
 }
