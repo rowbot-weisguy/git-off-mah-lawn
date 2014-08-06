@@ -30,7 +30,6 @@ function Start () {
 function Update () {
 	checkLosing();
 	checkWinning();
-	print(animationTimer);
 	
 	if (animationStart == true) {
 		animationTimer --;
