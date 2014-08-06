@@ -46,5 +46,5 @@ function addTimer() {
 }
 
 function OnGUI(){
-	GUI.Label(Rect(20, 20, 1000, 500), "WAVE: " + totalRaccoons + "/" + maxRaccoons);
+	GUI.Label(Rect(20, 20, 1000, 500), "RACCOONS: " + totalRaccoons + "/" + maxRaccoons);
 }
