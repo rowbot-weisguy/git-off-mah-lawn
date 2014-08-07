@@ -8,13 +8,15 @@ static var gameState : int;
 //static var animationSwitch1 : boolean = false;
 //static var jebAnimation: GameObject;
 
-var animationSwitch2 : boolean = false;
-var backgroundAnimation: GameObject;
-
 var retry : GameObject;
 var retrying : boolean;
 var winingGUI : boolean = false; 
 var animationStart : boolean = false; 
+var animationSwitch2 : boolean = false;
+var backgroundAnimation: GameObject;
+
+static var readyToRotate : boolean = false;
+static var rotationTimer : float = 0;
  
 var animationTimer : int;
 var banjo : AudioClip;
@@ -32,7 +34,7 @@ function Start () {
 function Update () {
 	checkLosing();
 	checkWinning();
-//	print(animationTimer);
+	checkAnimation();
 	
 	if (animationStart == true) {
 		animationTimer --;
@@ -41,13 +43,6 @@ function Update () {
 	if (animationTimer <= 0) {
 		animationTimer = 0;
 	}
-	
-	//if (turned == true) {
-		//animationSwitch2 = true;
-		//backgroundAnimation.animation.Play();
-		//turned = false;
-
-	//}
 }
 
 function checkLosing() {
@@ -64,7 +59,17 @@ function checkWinning() {
 	if (gameState == 2 && !animationSwitch2) {
 	winingGUI = true;
 
-	
+	}
+}
+
+function checkAnimation(){
+	if (readyToRotate == true){
+		rotationTimer ++;
+		if (rotationTimer == 60 ) {
+			backgroundAnimation.animation.Play();
+			rotationTimer = 0;
+			readyToRotate = false;
+		}
 	}
 }
 

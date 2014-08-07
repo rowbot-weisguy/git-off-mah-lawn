@@ -9,7 +9,7 @@ static var currentHealth : float = 10;
 //private var bulletSpeed : float = 350;
 
 //var defaultBullet : GameObject;
-var anim : Animator;
+static var anim : Animator;
 var healthBarWidth : int;
 var myHealthBarBackground : GameObject;
 var myHealthBackground : GameObject;
@@ -36,7 +36,6 @@ function Update () {
 	RunAnimation();
 	MovementControl();
 	DisplayHealth();
-//	print(inHouse);
 }
 
 function RunAnimation() {
@@ -70,7 +69,6 @@ function MovementControl() {
 	movement = transform.TransformDirection(movement);
 	movement *= speed;
 	controller.Move(movement * Time.deltaTime); 
-
 }
 
 function getDamage(damage : int) {
@@ -79,7 +77,6 @@ function getDamage(damage : int) {
 		currentHealth = 0;
 	}
 }
-
 
 function DisplayHealth() {
 
