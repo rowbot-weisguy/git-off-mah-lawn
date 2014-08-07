@@ -8,11 +8,13 @@ static var gameState : int;
  //static var animationSwitch1 : boolean = false;
  //static var jebAnimation: GameObject;
 
-  var animationSwitch2 : boolean = false;
-  var backgroundAnimation: GameObject;
+ var animationSwitch2 : boolean = false;
+ var backgroundAnimation: GameObject;
 
  var winingGUI : boolean = false; 
  var animationStart : boolean = false; 
+ var readyToRotate : boolean = false;
+ var rotationTimer : float = 0;
  
  var animationTimer : int;
  public var banjo : AudioClip;
@@ -30,6 +32,7 @@ function Start () {
 function Update () {
 	checkLosing();
 	checkWinning();
+	checkAnimation();
 	
 	if (animationStart == true) {
 		animationTimer --;
@@ -38,13 +41,6 @@ function Update () {
 	if (animationTimer <= 0) {
 		animationTimer = 0;
 	}
-	
-	//if (turned == true) {
-		//animationSwitch2 = true;
-		//backgroundAnimation.animation.Play();
-		//turned = false;
-
-	//}
 }
 
 function checkLosing() {
@@ -57,7 +53,17 @@ function checkWinning() {
 	if (gameState == 2 && !animationSwitch2) {
 	winingGUI = true;
 
-	
+	}
+}
+
+function checkAnimation(){
+	if (readyToRotate == true){
+		rotationTimer ++;
+		if (rotationTimer == 60) {
+			backgroundAnimation.animation.Play();
+			rotationTimer = 0;
+			readyToRotate = false;
+		}
 	}
 }
 
@@ -66,9 +72,10 @@ function OnGUI(){
 		if (GUI.Button(Rect(Screen.width/2 - 50, Screen.height/3 * 2, 100, 50), "NEXT WAVE")) {
 			audio.PlayOneShot(win);
 			animationSwitch2 = true;
-			backgroundAnimation.animation.Play();
 			winingGUI = false;
 			animationStart = true;
+			UncleJeb.anim.SetTrigger("Rotate");
+			readyToRotate = true;
 
 		}
 	}

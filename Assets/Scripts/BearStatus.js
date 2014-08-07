@@ -6,8 +6,8 @@
 
 	public var maxHealth : float = 20;
 	public var currentHealth : float = 20;
-	static var speed_x : float = 0.025;
-	static var speed_y : float = 0.015;
+	static var speed_x : float = 0.03;
+	static var speed_y : float = 0.02;
 	
 	var healthBarWidth : int;
 	var myHealthBarBackground : GameObject;
@@ -169,10 +169,9 @@ function takeDamage(damage : int) {
 		Destroy (myHealth);
 		Destroy (myHealthBackground);
 		var shockWave : GameObject = Instantiate(explosion,transform.position,Quaternion.identity);
-		shockWave.transform.localScale = Vector3(0.0001f, 0.0001f, 0.0001f);
+		shockWave.transform.localScale = Vector3(1f, 1f, 1f);
 		Instantiate(bigBlood,transform.position,Quaternion.identity);
-		Spawner.numRaccoons -= 1;
-		Spawner.totalRaccoons -= 1;
+		GameState.gameState = 2;
 		
 
 
@@ -181,13 +180,13 @@ function takeDamage(damage : int) {
 
 function DisplayHealth() {
 	myHealth.transform.position = Camera.main.WorldToViewportPoint(transform.position);
-	myHealth.transform.position.x -= 0.085f;
-	myHealth.transform.position.y -= 0.06f;
+	myHealth.transform.position.x -= 0.1f;
+	myHealth.transform.position.y -= 0.09f;
 	myHealth.transform.localScale = Vector3.zero;
 	
 	myHealthBackground.transform.position = Camera.main.WorldToViewportPoint(transform.position);
-	myHealthBackground.transform.position.x -= 0.085f;
-	myHealthBackground.transform.position.y -= 0.06f;
+	myHealthBackground.transform.position.x -= 0.1f;
+	myHealthBackground.transform.position.y -= 0.09f;
 	myHealthBackground.transform.localScale = Vector3.zero;
 	
 	var healthPercent : float = currentHealth / maxHealth;

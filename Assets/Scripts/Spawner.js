@@ -32,7 +32,7 @@ function addRaccoons() {
 			 if(Time.time > nextSpawnerTime && numRaccoons < 4){
     			var pos = Vector3( Random.Range(-2.6f, 2.6f) ,Random.Range(6.1f, 10f),0f);
     	 		var raccoonWave : GameObject = Instantiate (enemy ,pos, Quaternion.identity);
-    	 		var randomSize = Random.Range(0.6f, 0.8f);
+    	 		var randomSize = Random.Range(0.6f, 1f);
     	 		raccoonWave.transform.localScale = Vector3(randomSize, randomSize, 0);
 				addTimer();
     		 }
@@ -55,7 +55,6 @@ function addBossMonster() {
 
 function waveClean() {
 	if (minRaccoons == maxRaccoons && numRaccoons == 0) {
-	//GameState.gameState = 2;
 	addBoss = true;
 	}
 }
