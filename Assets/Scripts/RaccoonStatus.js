@@ -173,7 +173,7 @@ function OnTriggerEnter(col : Collider) {
 		takeDamage(1);
 		Destroy(col.gameObject);
 		Instantiate(smallBlood,col.transform.position,Quaternion.identity);
-				audio.PlayOneShot(blood);
+		audio.PlayOneShot(blood);
 
 	}
 	

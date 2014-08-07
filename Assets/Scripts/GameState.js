@@ -13,8 +13,8 @@ static var gameState : int;
 
  var winingGUI : boolean = false; 
  var animationStart : boolean = false; 
- var readyToRotate : boolean = false;
- var rotationTimer : float = 0;
+ static var readyToRotate : boolean = false;
+ static var rotationTimer : float = 0;
  
  var animationTimer : int;
  public var banjo : AudioClip;
@@ -59,7 +59,7 @@ function checkWinning() {
 function checkAnimation(){
 	if (readyToRotate == true){
 		rotationTimer ++;
-		if (rotationTimer == 60) {
+		if (rotationTimer == 60 ) {
 			backgroundAnimation.animation.Play();
 			rotationTimer = 0;
 			readyToRotate = false;

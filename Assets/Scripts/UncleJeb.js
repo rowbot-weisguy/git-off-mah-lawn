@@ -79,7 +79,6 @@ function getDamage(damage : int) {
 	}
 }
 
-
 function DisplayHealth() {
 
 	myHealth.transform.position = Camera.main.WorldToViewportPoint(transform.position);
