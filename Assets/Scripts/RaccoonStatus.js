@@ -23,7 +23,6 @@
 	private var attack_speed : float = 300;
 	
 	var anim : Animator;
-	var raccoon_losing : boolean = false;
 	
 	public var smallBlood : GameObject;
 	public var explosion : GameObject;
@@ -36,7 +35,6 @@ function Start () {
 	ChooseDirection(); 
 	anim = GetComponent("Animator");
 	
-	raccoon_losing = false;
 	GameState.gameState = 1;
 	
 }
@@ -178,7 +176,6 @@ function OnTriggerEnter(col : Collider) {
 	}
 	
 	if (col.gameObject.tag == "Porch") {
-		raccoon_losing = true;
 		GameState.gameState = 3;
 	}
 }

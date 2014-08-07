@@ -4,20 +4,22 @@ var buttonImage : Texture2D;
 var buttonWidth : float;
 var buttonHeight : float;
 var loadLevel : String;
+var moveSpeed : float = 15;
+var friction : float = 0.9;
+var trigger : boolean = true;
 
 private var buttonPos : Vector3;
 private var buttonRect : Rect;
 private var downOffset : float;
-private var speed : Vector3;
-var trigger : boolean;
+private var currentSpeed : Vector3;
 
 function Start () {
-	downOffset = 80;
-	speed = new Vector3(0, 10);
+	downOffset = 20;
+	currentSpeed = new Vector3(0, moveSpeed);
 	
 	buttonPos = new Vector3(
 		Screen.width/2 - buttonWidth/2,
-		Screen.height - buttonHeight + downOffset
+		Screen.height + downOffset
 	);
 		
 	buttonRect = new Rect(
@@ -29,9 +31,9 @@ function Start () {
 }
 
 function Update () {
-	if(trigger && Mathf.Abs(speed.y) >= 0.01) {
-		buttonPos -= speed;
-		speed.y *= 0.90;
+	if(trigger && Mathf.Abs(currentSpeed.y) >= 0.01) {
+		buttonPos -= currentSpeed;
+		currentSpeed.y *= friction;
 		
 		buttonRect = new Rect(
 			buttonPos.x,
@@ -47,7 +49,7 @@ function OnGUI(){
 	GUI.Label(Rect(20, 20, 1000, 500), "YOU LOSE");
 	
 	if (GUI.Button(buttonRect, buttonImage)) {
-		speed = new Vector3(0,-10);
+		currentSpeed = new Vector3(0,-moveSpeed);
 //		Application.LoadLevel(loadLevel);
 	}
 }
