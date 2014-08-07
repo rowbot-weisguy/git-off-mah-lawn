@@ -36,7 +36,7 @@ function Update () {
 	RunAnimation();
 	MovementControl();
 	DisplayHealth();
-	print(inHouse);
+//	print(inHouse);
 }
 
 function RunAnimation() {
